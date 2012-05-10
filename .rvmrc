@@ -1,1 +1,1 @@
-rvm use 1.9.3@strano --install --create
+rvm use 1.9.3
