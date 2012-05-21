@@ -19,8 +19,8 @@ ActiveRecord::Schema.define(:version => 20120323122036) do
     t.text     "results"
     t.integer  "project_id"
     t.integer  "user_id"
-    t.datetime "created_at"
-    t.datetime "updated_at"
+    t.datetime "created_at",                      :null => false
+    t.datetime "updated_at",                      :null => false
     t.datetime "completed_at"
     t.string   "stage"
     t.datetime "deleted_at"
@@ -31,8 +31,8 @@ ActiveRecord::Schema.define(:version => 20120323122036) do
 
   create_table "projects", :force => true do |t|
     t.string   "url"
-    t.datetime "created_at"
-    t.datetime "updated_at"
+    t.datetime "created_at",                            :null => false
+    t.datetime "updated_at",                            :null => false
     t.text     "github_data"
     t.datetime "cloned_at"
     t.datetime "deleted_at"
@@ -46,8 +46,8 @@ ActiveRecord::Schema.define(:version => 20120323122036) do
     t.string   "github_access_token"
     t.text     "github_data"
     t.boolean  "ssh_key_uploaded_to_github", :default => false
-    t.datetime "created_at"
-    t.datetime "updated_at"
+    t.datetime "created_at",                                    :null => false
+    t.datetime "updated_at",                                    :null => false
     t.datetime "deleted_at"
     t.string   "token"
   end
