@@ -194,6 +194,8 @@ GEM
       activesupport (>= 3.0)
       railties (>= 3.0)
       rspec (~> 2.9.0)
+    rvm-capistrano (1.2.0)
+      capistrano (>= 2.0.0)
     sass (3.1.15)
     sass-rails (3.2.5)
       railties (~> 3.2.0)
@@ -279,6 +281,7 @@ DEPENDENCIES
   pg
   rails (= 3.2.2)
   rspec-rails
+  rvm-capistrano
   sass-rails (~> 3.2.3)
   shoulda-matchers
   sidekiq
