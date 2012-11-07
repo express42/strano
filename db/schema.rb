@@ -11,7 +11,7 @@
 #
 # It's strongly recommended to check this file into your version control system.
 
-ActiveRecord::Schema.define(:version => 20120323122036) do
+ActiveRecord::Schema.define(:version => 20120913160334) do
 
   create_table "jobs", :force => true do |t|
     t.string   "task"
