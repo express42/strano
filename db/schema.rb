@@ -33,7 +33,7 @@ ActiveRecord::Schema.define(:version => 20120913160334) do
     t.string   "url"
     t.datetime "created_at",                            :null => false
     t.datetime "updated_at",                            :null => false
-    t.text     "github_data"
+    t.text     "data"
     t.datetime "cloned_at"
     t.datetime "deleted_at"
     t.boolean  "pull_in_progress",   :default => false
