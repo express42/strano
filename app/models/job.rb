@@ -52,6 +52,11 @@ class Job < ActiveRecord::Base
     end
   end
 
+  # required for Capistrano v2.3.5
+  def tty?
+    nil
+  end
+  
 
   private
 
@@ -66,5 +71,5 @@ class Job < ActiveRecord::Base
     def execute_task
       CapExecute.perform_async id
     end
-
+    
 end
