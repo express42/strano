@@ -1,15 +1,15 @@
 <div class="row margin-top">
 
   <div class="span1 margin-top right">
-    <%= link_to 'Run...', new_project_jobs_path(resource, task.fully_qualified_name), :class => "btn btn-primary" %>
+    <%= link_to 'Run...', new_project_jobs_path(resource, task.id), :class => "btn btn-primary" %>
   </div>
 
   <div class="span11 bordered-bottom padding-bottom2 padding-top">
     <div class="row">
       <div class="span9">
         <h3 class="<%= 'quieter' if hidden %>">
-          <%= task.fully_qualified_name %>
-          <small class="padding-left"><%= task.brief_description %></small>
+          <%= task.name %>
+          <small class="padding-left"><%= task.description %></small>
         </h3>
       </div>
       <div class="span2 right margin-top2">
@@ -19,7 +19,7 @@
 
     <div class="row">
       <div class="span9 quiet">
-        <%- if last_run = resource.jobs.where(:task => task.fully_qualified_name).first -%>
+        <%- if last_run = resource.jobs.where(:task_id => task.id).first -%>
           last run <%= link_to "#{time_ago_in_words(last_run.created_at)} ago", [resource, last_run] %>
           by <%= last_run.user %>
           <span class="smaller quieter padding-left">(<%= last_run.created_at.to_s :short %>)</span>

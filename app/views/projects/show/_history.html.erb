@@ -24,12 +24,11 @@
               <strong><%= time_ago_in_words job.created_at %> ago</strong>
               <div><%= job.created_at.to_s :short %></div>
             </td>
-            <td><code><%= job.task %></code></td>
+            <td><code><%= job.task.name %></code></td>
             <td><%= job.user %></td>
             <td class="small"><%= distance_of_time_in_words(job.created_at, job.completed_at, true) if job.completed_at %></td>
             <td>
               <%= link_to "view results", [resource, job], :class => 'label label-info' %>
-              <%= link_to "delete", [resource, job], :class => 'label label-important', :method => :delete, :confirm => "Are you sure?" %>
             </td>
           </tr>
         <%- end -%>

@@ -1,14 +1,18 @@
 require 'kernel'
+require 'open3'
+
 class Job < ActiveRecord::Base
   include Ansible
 
   belongs_to :project
   belongs_to :user
+  belongs_to :task
   after_create :execute_task
 
   default_scope order('created_at DESC')
   default_scope where(:deleted_at => nil)
 
+  validate :precense => :task
 
   def self.deleted
     self.unscoped.where 'deleted_at IS NOT NULL'
@@ -20,15 +24,11 @@ class Job < ActiveRecord::Base
     ARGV << stage if stage
 
     FileUtils.chdir project.repo.path do
-      out = capture(:stderr) do
-        success = Strano::CLI.parse(Strano::Logger.new(self), full_command.flatten).execute!
-      end
+      out, status = Open3.capture2e(task.name)
 
-      if out.is_a?(String)
-        puts "\n  \e[33m> #{out}\e" unless out.blank?
-      elsif !out.string.blank?
-        puts "\n  \e[1;32m> #{out.string}\e"
-      end
+      puts out
+
+      success = status.success?
     end
 
     !!success

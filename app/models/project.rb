@@ -6,7 +6,8 @@ class Project < ActiveRecord::Base
   # The github data will be serialzed as a Hash.
   serialize :data
 
-  has_many :jobs, :dependent => :destroy
+  has_many :jobs,  :dependent => :destroy
+  has_many :tasks, :dependent => :destroy
   has_one :job_in_progress, :class_name => "Job"
 
   validate :url, :presence => true, :uniqueness => { :case_sensitive => false }
@@ -142,10 +143,6 @@ class Project < ActiveRecord::Base
 
 
   private
-
-    def tasks
-      @tasks ||= cap.task_list(:all).sort_by(&:fully_qualified_name)
-    end
 
     def clone_repo
       CloneRepo.perform_async id

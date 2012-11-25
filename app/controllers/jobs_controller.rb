@@ -14,8 +14,6 @@ class JobsController < InheritedResources::Base
 
   def new
     @job = parent.jobs.build params[:job]
-    # TODO write in the README that all the projects that use multistage need one
-    # default_stage configuration
     @job.stage = parent.cap.default_stage if parent.cap.namespaces.keys.include?(:multistage)
 
     new!
@@ -30,7 +28,7 @@ class JobsController < InheritedResources::Base
 
     def begin_of_association_chain
       params[:job] ||= {}
-      params[:job][:task] ||= params[:task]
+      params[:job][:task_id] ||= params[:task]
       params[:job][:user] = current_user
 
       super

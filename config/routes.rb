@@ -10,6 +10,7 @@ Strano::Application.routes.draw do
     resources :jobs, :except => [:new,:index] do
       get 'new/:task', :action => :new, :on => :collection, :as => :new
     end
+    resources :tasks, :only => [:new, :create, :index]
   end
 
   require 'sidekiq/web'

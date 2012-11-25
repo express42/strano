@@ -28,26 +28,10 @@
     <div class="pull-right margin-left">
       <%- if resource.job_in_progress? -%>
         <%= link_to 'JOB IN PROGRESS', [resource, resource.job_in_progress], :class => "label warning" %>
-      <%- else -%>
-        <%= deploy_now_button %>
       <%- end -%>
     </div>
 
     <% unless @project_cap_error %>
-      <div class="pull-right" id="tabwell">
-        <div class="hide" id="tabwell-tasks">
-          <%- if params[:all_tasks] -%>
-            <%= link_to 'hide hidden tasks', resource_path(:tab => "tasks"), :class => "btn small" %>
-          <%- else -%>
-            <%= link_to 'show hidden tasks', resource_path(:tab => "hidden_tasks", :all_tasks => true), :class => "btn small" %>
-          <%- end -%>
-        </div>
-        <%- if params[:all_tasks] -%>
-        <div class="hide" id="tabwell-hidden_tasks">
-          <%= link_to 'hide hidden tasks', resource_path(:tab => "tasks"), :class => "btn small" %>
-        </div>
-        <%- end -%>
-      </div>
     <% end %>
 
     <li class="active"><a href="#info" data-toggle="tab">Information</a></li>

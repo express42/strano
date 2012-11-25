@@ -11,7 +11,7 @@ class ProjectsController < InheritedResources::Base
 
   def show
     show! do
-      @recent_tasks = resource.jobs.reorder(nil).limit(5)
+      @recent_tasks = resource.tasks
     end
   end
 
