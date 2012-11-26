@@ -1,17 +1,12 @@
 <div class="tab-pane" id="tasks">
+  <div class="page-header">
+    <h4>Tasks</h4>
+  </div>
 
-  <%- unless @recent_tasks.empty? -%>
-
-    <div class="page-header">
-      <h4>Tasks</h4>
-    </div>
-
-    <div class="well">
-      <%= link_to 'New task', new_project_task_path(resource), :class => "btn btn-primary" %>
-    </div>
-    <%- @recent_tasks.each do |task| -%>
-      <%= render :partial => "task", :locals => { :task => task, :hidden => false } %>
-    <%- end -%>
+  <div class="well">
+    <%= link_to 'New task', new_project_task_path(resource), :class => "btn btn-primary" %>
+  </div>
+  <%- @recent_tasks.each do |task| -%>
+    <%= render :partial => "task", :locals => { :task => task, :hidden => false } %>
   <%- end -%>
-
 </div>
