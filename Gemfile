@@ -13,7 +13,6 @@ end
 
 gem 'jquery-rails'
 gem 'twitter-bootstrap-rails'
-gem 'sidekiq'
 gem 'slim'
 gem 'sinatra'
 gem 'omniauth-github'

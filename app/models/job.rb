@@ -7,31 +7,43 @@ class Job < ActiveRecord::Base
   belongs_to :project
   belongs_to :user
   belongs_to :task
-  after_create :execute_task
 
   default_scope order('created_at DESC')
-  default_scope where(:deleted_at => nil)
+  default_scope where(:deleted_at => nil, :visible => true)
 
-  validate :precense => :task
+  validate :precense => :task, :if => :visible
 
   def self.deleted
     self.unscoped.where 'deleted_at IS NOT NULL'
   end
 
-  def run_task
-    success = true
+  def perform
+    Rails.logger.info "Performing Job #{id}"
+    if visible?
+      Project::PullRepo.perform(project_id) unless project.pull_in_progress?
 
-    ARGV << stage if stage
+      success = true
 
-    FileUtils.chdir project.repo.path do
-      out, status = Open3.capture2e(task.name)
+      FileUtils.chdir project.repo.path do
+        out, status = Open3.capture2e(task.name)
 
-      puts out
+        puts out
 
-      success = status.success?
+        success = status.success?
+      end
+
+    else
+      # perform system task
+      case notes
+      when 'PullRepo'
+        Project::PullRepo.perform project_id
+      when 'CloneRepo'
+        Project::CloneRepo.perform project_id
+      when 'RemoveRepo'
+        Project::RemoveRepo.perform project_id
+      end
     end
-
-    !!success
+    update_attributes :completed_at => Time.now, :success => success
   end
 
   def complete?
@@ -52,7 +64,6 @@ class Job < ActiveRecord::Base
     end
   end
 
-
   private
 
     def full_command
@@ -61,10 +72,6 @@ class Job < ActiveRecord::Base
 
     def branch_setting
       %W(-s branch=#{branch}) unless branch.blank?
-    end
-
-    def execute_task
-      CapExecute.perform_async id
     end
 
 end

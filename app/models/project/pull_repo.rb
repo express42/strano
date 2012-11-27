@@ -1,12 +1,6 @@
 class Project
   class PullRepo
-    include Sidekiq::Worker
-
     def self.perform(project_id)
-      new.perform(project_id)
-    end
-
-    def perform(project_id)
       begin
         project = Project.find(project_id)
       rescue ActiveRecord::RecordNotFound
@@ -21,6 +15,11 @@ class Project
                           :pulled_at => Time.now,
                           :pull_in_progress => false},
                           :id => project_id)
+    end
+
+    def self.perform_async project_id
+      Job.create! :project_id => project_id, :visible => false,
+        :notes => 'PullRepo'
     end
   end
 end

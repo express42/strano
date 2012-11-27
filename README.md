@@ -61,13 +61,10 @@ The following are required and should be defined before running Strano.
 Background Processing
 ---------------------
 
-Background processing of tasks and repo management is taken care of by the excellent [Sidekiq](https://github.com/mperham/sidekiq). Run
+Background processing of tasks and repo management is taken care of by the excellent rake task. Run
 the queue like this:
 
-    bundle exec sidekiq
-
-You can then monitor your queue at `http://YOUR-STRANO-APP/sidekiq`. Check out the [Sidekiq Wiki](https://github.com/mperham/sidekiq/wiki) for assistance on Sidekiq and its options.
-
+    bundle exec rake bg:worker
 
 License
 -------

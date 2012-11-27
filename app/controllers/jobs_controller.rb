@@ -14,8 +14,6 @@ class JobsController < InheritedResources::Base
 
   def new
     @job = parent.jobs.build params[:job]
-    @job.stage = parent.cap.default_stage if parent.cap.namespaces.keys.include?(:multistage)
-
     new!
   end
 

@@ -1,15 +1,12 @@
 class Project
   class CloneRepo
-    include Sidekiq::Worker
 
-    def perform(project_id)
+    def self.perform(project_id)
       begin
         project = Project.find(project_id)
       rescue ActiveRecord::RecordNotFound
         return
       end
-
-      project.update_column :pull_in_progress, true
 
       Strano::Repo.clone project.url
 
@@ -18,6 +15,11 @@ class Project
                           :pulled_at => Time.now,
                           :pull_in_progress => false},
                           :id => project_id)
+    end
+
+    def self.perform_async project_id
+      Job.create! :project_id => project_id, :visible => false,
+        :notes => 'CloneRepo'
     end
   end
 end

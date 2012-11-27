@@ -138,7 +138,10 @@ class Project < ActiveRecord::Base
 
   # Run git pull on the repo regardless of when it was last pulled.
   def pull!
-    PullRepo.perform_async(id) unless pull_in_progress?
+    unless pull_in_progress?
+      PullRepo.perform_async(id)
+      update_column :pull_in_progress, true
+    end
   end
 
 
