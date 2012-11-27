@@ -25,13 +25,16 @@ class Job < ActiveRecord::Base
       success = true
 
       FileUtils.chdir project.repo.path do
-        out, status = Open3.capture2e(task.name)
+        Open3.popen2e(task.name) do |input, output_and_error, wait_thread|
+          input.close
+          while !output_and_error.eof?
+            msg = output_and_error.readline
+            update_attribute :results, (results_before_type_cast || '') + msg unless msg.blank?
+          end
 
-        puts out
-
-        success = status.success?
+          success = wait_thread.value.success?
+        end
       end
-
     else
       # perform system task
       case notes
@@ -52,10 +55,6 @@ class Job < ActiveRecord::Base
 
   def command
     "#{stage} #{task}"
-  end
-
-  def puts(msg)
-    update_attribute :results, (results_before_type_cast || '') + msg unless msg.blank?
   end
 
   def results
