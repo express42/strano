@@ -140,7 +140,6 @@ class Project < ActiveRecord::Base
   def pull!
     unless pull_in_progress?
       PullRepo.perform_async(id)
-      update_column :pull_in_progress, true
     end
   end
 
