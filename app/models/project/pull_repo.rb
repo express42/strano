@@ -18,7 +18,8 @@ class Project
     end
 
     def self.perform_async project_id
-      update_column :pull_in_progress, true
+      project = Project.find project_id
+      project.update_column :pull_in_progress, true
       Job.create! :project_id => project_id, :visible => false,
         :notes => 'PullRepo'
     end
