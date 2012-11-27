@@ -11,7 +11,7 @@ class ProjectsController < InheritedResources::Base
 
   def show
     show! do
-      @recent_tasks = resource.tasks
+      @recent_tasks = resource.tasks.order(:name)
     end
   end
 
