@@ -1076,7 +1076,7 @@ input[type="password"],
 textarea,
 .uneditable-input {
   display: inline-block;
-  width: 210px;
+  width: 400px;
   height: 18px;
   padding: 4px;
   font-size: 13px;
