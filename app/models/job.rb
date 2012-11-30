@@ -25,7 +25,7 @@ class Job < ActiveRecord::Base
       success = true
 
       FileUtils.chdir project.repo.path do
-        Open3.popen2e(task.name) do |input, output_and_error, wait_thread|
+        Open3.popen2e(command) do |input, output_and_error, wait_thread|
           input.close
           while !output_and_error.eof?
             msg = output_and_error.readline
@@ -53,24 +53,18 @@ class Job < ActiveRecord::Base
     !completed_at.nil?
   end
 
-  def command
-    "#{stage} #{task}"
-  end
-
   def results
     unless (res = read_attribute(:results)).blank?
       escape_to_html res
     end
   end
 
-  private
-
-    def full_command
-      %W(-f #{Rails.root.join('Capfile.repos')} -f Capfile -Xx#{verbosity}) + branch_setting + command.split(' ')
+  def command
+    if task.with_argument?
+      task.name.sub(Task::ARG_PLACEHOLDER, notes)
+    else
+      task.name
     end
-
-    def branch_setting
-      %W(-s branch=#{branch}) unless branch.blank?
-    end
+  end
 
 end

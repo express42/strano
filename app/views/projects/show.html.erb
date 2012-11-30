@@ -34,16 +34,18 @@
     <% unless @project_cap_error %>
     <% end %>
 
-    <li class="active"><a href="#info" data-toggle="tab">Information</a></li>
 
     <%- if resource.cloned? -%>
       <%- if resource.capified? && !@project_cap_error -%>
-        <li><a href="#tasks" data-toggle="tab">Tasks</a></li>
-        <%- if params[:all_tasks] -%>
-          <li><a href="#hidden_tasks" data-toggle="tab">Hidden Tasks</a></li>
-        <%- end -%>
+        <li class="active"><a href="#tasks" data-toggle="tab">Tasks</a></li>
       <%- end -%>
       <%- unless resource.jobs.empty? -%><li><a href="#history" data-toggle="tab">History</a></li><%- end -%>
+    <%- end -%>
+
+    <%- if !resource.cloned? || (!resource.capified? || @project_cap_error) -%>
+      <li class="active"><a href="#info" data-toggle="tab">Information</a></li>
+    <%- else -%>
+      <li><a href="#info" data-toggle="tab">Information</a></li>
     <%- end -%>
 
     <li class="dropdown" data-dropdown="dropdown">
@@ -55,7 +57,6 @@
   </ul>
 
   <div class="tab-content">
-    <div class="tab-pane active" id="info"><%= render 'projects/show/info' %></div>
 
     <%- if resource.cloned? -%>
       <%- if resource.capified? && !@project_cap_error -%>
@@ -63,6 +64,10 @@
         <%= render 'projects/show/hidden_tasks' if params[:all_tasks] %>
       <%- end -%>
       <%= render 'projects/show/history' unless resource.jobs.empty? %>
+    <%- end -%>
+
+    <%- if !resource.cloned? || (!resource.capified? || @project_cap_error) -%>
+      <div class="tab-pane active" id="info"><%= render 'projects/show/info' %></div>
     <%- end -%>
   </div>
 </div>

@@ -14,6 +14,7 @@
           <th>Run by</th>
           <th>Ran for</th>
           <th width="125"></th>
+          <th width="125"></th>
         </tr>
       </thead>
       <tbody>
@@ -24,11 +25,20 @@
               <strong><%= time_ago_in_words job.created_at %> ago</strong>
               <div><%= job.created_at.to_s :short %></div>
             </td>
-            <td><code><%= job.task.name %></code></td>
+            <td><code><%= job.command %></code></td>
             <td><%= job.user %></td>
             <td class="small"><%= distance_of_time_in_words(job.created_at, job.completed_at, true) if job.completed_at %></td>
             <td>
               <%= link_to "view results", [resource, job], :class => 'label label-info' %>
+            </td>
+            <td>
+              <%- if job.complete? -%>
+                <%- if job.success? -%>
+                  <span class="label label-success">SUCCESS</span>
+                <%- else -%>
+                  <span class="label label-important">FAILED</span>
+                <%- end -%>
+              <%- end -%>
             </td>
           </tr>
         <%- end -%>

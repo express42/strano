@@ -3,7 +3,7 @@
 
 <%= simple_form_for resource, :url => [parent, resource], :html => { :class => 'form-horizontal' } do |f| %>
 
-  <%= f.input :name, :placeholder => 'cap stagename taskname' %>
+  <%= f.input :name, :placeholder => 'cap stagename taskname args=##' %>
   <%= f.input :description, :as => :text, :input_html => { :class => "span8", :rows => 5, :style => "height:80px;" } %>
 
   <div class="form-actions">

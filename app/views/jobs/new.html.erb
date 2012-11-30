@@ -12,6 +12,14 @@
       <%= f.hidden_field :task_id %>
     </div>
   </div>
+  <%- if resource.task.with_argument? -%>
+    <div class="control-group">
+      <label class="control-label">Arguments</label>
+      <div class="controls">
+        <%= f.text_field :notes %>
+      </div>
+    </div>
+  <%- end %>
 
   <div class="form-actions">
     <%= f.button :submit, 'Start Task', :disable_with => "Starting task..." %>
