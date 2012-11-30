@@ -55,7 +55,7 @@ class Job < ActiveRecord::Base
 
   def results
     unless (res = read_attribute(:results)).blank?
-      escape_to_html res
+      escape_to_html(ERB::Util.html_escape(res))
     end
   end
 
