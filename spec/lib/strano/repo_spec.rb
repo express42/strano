@@ -54,9 +54,13 @@ describe Strano::Repo do
   end
 
   describe "#cloned?" do
-    before(:each) { FakeFS.deactivate! }
+    # before(:each) { FakeFS.deactivate! }
 
-    it { repo.cloned?.should == true }
+    context "when project is cloned" do
+      before { Grit::Git.any_instance.should_receive(:fs_exist?).with('.git').and_return(true) }
+
+      it { repo.cloned?.should == true }
+    end
 
     context "when project is not cloned" do
       let(:repo) { Strano::Repo.new('git@github.com:joelmoss/null.git') }
