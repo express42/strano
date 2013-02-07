@@ -1,31 +1,27 @@
 Strano
 ======
 
-The Github backed Capistrano deployment management UI.
+The Github and Git backed mostly deployment management UI.
 
-Strano allows you to run any capistrano task via a clean and simple web interface.
-Simply create a project from any of your Github repositories, and Strano will use
-the Capistrano configuration within the repository itself. Which means you don't
-have to set up Capistrano twice, and you can still run capistrano tasks from the
-command line without fear of different configurations being used, causing
-conflicted deploys.
+Strano allows you to run any task via a clean and simple web interface.
+Simply create a project from any of your Github or Git repositories, and Strano will use
+repository as working directory to run any task you want (but we only use it for Capistrano).
+Which means you don't have to set up Capistrano twice, and you can still run
+capistrano tasks from the command line without fear of different configurations
+being used, causing conflicted deploys.
 
 All tasks are recorded, so you can look back and see a full history of who did
-what and when. I also plan on creating a Capistrano plugin, that will record all
-command line task activity with Strano. Which means your task history will also
-include the tasks that you ran on the command line.
+what and when.
 
-Strano is in production use at ShermansTravel, but is still in active development.
-So I need your help to improve and ensure the code is top quality. So I encourage
-any and all pull requests. Fork away!
-
-![Task History](https://img.skitch.com/20120119-rk61yn6u4gt73s9kic829513py.jpg)
+Strano is in production use at KupiKupon and other Express42 clients, but is
+still in active development.  So I need your help to improve and ensure the code
+is top quality. So I encourage any and all pull requests. Fork away!
 
 Installation
 ------------
 
-Strano is simply a Rails app with a Resque backend for processing background jobs.
-Clone the repo from [Github](https://github.com/joelmoss/strano) and run:
+Strano is simply a Rails app with a DB backend for processing background jobs.
+Clone the repo from [Github](https://github.com/express42/strano) and run:
 
     script/bootstrap
 
@@ -55,7 +51,9 @@ The following are required and should be defined before running Strano.
 - Public SSH key
 
   In order to clone repositories from Github, it requires a public SSH key be
-  defined in `public_ssh_key`.
+  defined in `public_ssh_key`. Or strano process running user should have access
+  to Github (or Git) repo. Also user running strano process should have SSH
+  access to the machines, is you want it to run Capistrano tasks.
 
 
 Background Processing
