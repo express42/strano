@@ -53,7 +53,7 @@ The following are required and should be defined before running Strano.
   In order to clone repositories from Github, it requires a public SSH key be
   defined in `public_ssh_key`. Or strano process running user should have access
   to Github (or Git) repo. Also user running strano process should have SSH
-  access to the machines, is you want it to run Capistrano tasks.
+  access to the machines, if you want it to run Capistrano tasks.
 
 
 Background Processing
