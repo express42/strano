@@ -1,6 +1,10 @@
 Strano
 ======
 
+This is fork of [original Strano project](https://github.com/joelmoss/strano).
+We remove Sidekiq and Redis dependencies and allow Strano to run any task (not
+just Capistrano).
+
 The Github and Git backed mostly deployment management UI.
 
 Strano allows you to run any task via a clean and simple web interface.
@@ -75,11 +79,9 @@ Strano is released under the MIT license:
 Contributing
 ------------
 
-Read the [Contributing][cb] wiki page first.
-
 Once you've made your great commits:
 
-1. [Fork][1] Strano
+1. [Fork](https://help.github.com/articles/fork-a-repo) Strano
 2. Create a topic branch - `git checkout -b my_branch`
 3. Push to your branch - `git push origin my_branch`
 4. Create a [Pull Request](http://help.github.com/pull-requests/) from your branch
