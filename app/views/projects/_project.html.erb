@@ -4,7 +4,7 @@
   <td><h4><%= link_to project, project %></h4></td>
   <td>
     <%- if last_run = project.jobs.first -%>
-      <%= link_to last_run.task.name, [project, last_run] %> by <%= last_run.user %>
+      <%= link_to last_run.command, [project, last_run] %> by <%= last_run.user %>
       &nbsp;&nbsp;&nbsp;
       <span class="quieter smaller"><%= time_ago_in_words last_run.created_at %> ago</span>
     <%- else -%>

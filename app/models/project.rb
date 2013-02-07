@@ -95,13 +95,6 @@ class Project < ActiveRecord::Base
     @public_tasks ||= tasks.reject { |t| t.description.empty? || t.description =~ /^\[internal\]/ }
   end
 
-  # The hidden and internal task list for this project's repository.
-  #
-  # Returns an Array of tasks.
-  def hidden_tasks
-    @hidden_tasks ||= tasks.select { |t| t.description.empty? || t.description =~ /^\[internal\]/ }
-  end
-
   # Execute a capistrano command.
   #
   # args - An Array of arguments which will be passed to the Cap command.

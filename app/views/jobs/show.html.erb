@@ -1,5 +1,5 @@
 <% title "Job ##{resource.id}" %>
-<% subtitle "task: #{resource.task.name} by #{resource.user}" %>
+<% subtitle "task: #{resource.command} by #{resource.user}" %>
 <% breadcrumb "Projects", projects_path %>
 <% breadcrumb parent, parent %>
 
@@ -16,13 +16,9 @@
     </div>
   
     <li class="active"><a href="#results" data-toggle="tab">Results</a></li>
-    <%- if resource.notes.present? -%><li><a href="#notes" data-toggle="tab">Notes</a></li><%- end -%>
 
-    <li class="dropdown" data-dropdown="dropdown">
-      <a href="#" class="dropdown-toggle" data-toggle="dropdown">Actions <b class="caret"></b></a>
-      <ul class="dropdown-menu">
-        <li><%= link_to 'Repeat...', new_project_jobs_path(parent, resource.task_id) %></li>
-      </ul>
+    <li>
+      <%= link_to 'Repeat...', new_project_jobs_path(parent, resource.task_id) %>
     </li>
   </ul>
 
@@ -32,7 +28,7 @@
       <%- if resource.complete? -%>
     
         <h3>
-          Task '<%= resource.task.name %>' &nbsp;&nbsp;<small>completed <%= resource.completed_at.to_s :short %></small>
+          Task '<%= resource.command %>' &nbsp;&nbsp;<small>completed <%= resource.completed_at.to_s :short %></small>
         </h3>
         <pre id="job-results"><%= raw resource.results %></pre>
       
@@ -44,7 +40,5 @@
       <%- end -%>
     
     </div>
-  
-    <%- if resource.notes.present? -%><div class="tab-pane" id="notes"><%= resource.notes %></div><%- end -%>
   </div>
 </div>
