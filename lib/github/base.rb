@@ -30,13 +30,15 @@ class Github
               request.body = MultiJson.encode(params) unless params.empty?
           end
         end
-      
+
         response.body
       end
     
       def connection(options = {})
-        @connection ||= FaradayStack.build header_options.merge(options) do |builder|
-          builder.use Faraday::Response::Mashify
+        @connection ||= Faraday.new header_options.merge(options) do |builder|
+          builder.use FaradayMiddleware::Mashify
+          builder.use FaradayMiddleware::ParseJson
+          builder.adapter Faraday.default_adapter
         end
       end
   
