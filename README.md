@@ -5,7 +5,8 @@ This is fork of [original Strano project](https://github.com/joelmoss/strano).
 We remove Sidekiq and Redis dependencies and allow Strano to run any task (not
 just Capistrano).
 
-The Github and Git backed mostly deployment management UI.
+The Github and Git backed mostly deployment management UI,
+see [screenshots](https://github.com/express42/strano/wiki/ScreenShots).
 
 Strano allows you to run any task via a clean and simple web interface.
 Simply create a project from any of your Github or Git repositories, and Strano will use
