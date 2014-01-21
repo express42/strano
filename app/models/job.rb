@@ -24,16 +24,14 @@ class Job < ActiveRecord::Base
 
       success = true
 
-      FileUtils.chdir project.repo.path do
-        Open3.popen2e({'PWD' => project.repo.path}, command) do |input, output_and_error, wait_thread|
-          input.close
-          while !output_and_error.eof?
-            msg = output_and_error.readline
-            update_attribute :results, (results_before_type_cast || '') + msg unless msg.blank?
-          end
-
-          success = wait_thread.value.success?
+      Open3.popen2e({'PWD' => project.repo.path}, "cd #{project.repo.path} && #{command}") do |input, output_and_error, wait_thread|
+        input.close
+        while !output_and_error.eof?
+          msg = output_and_error.readline
+          update_attribute :results, (results_before_type_cast || '') + msg unless msg.blank?
         end
+
+        success = wait_thread.value.success?
       end
     else
       # perform system task
