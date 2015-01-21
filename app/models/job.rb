@@ -26,7 +26,7 @@ class Job < ActiveRecord::Base
 
       FileUtils.chdir project.repo.path do
         # clear env
-        env = {'GEM_PATH' => nil, 'GEM_HOME' => nil, 'RUBYOPT' => nil, 'BUNDLE_BIN_PATH' => nil, 'BUNDLE_GEMFILE' => nil}
+        env = {'GEM_PATH' => nil, 'GEM_HOME' => nil, 'RUBYOPT' => nil, 'BUNDLE_BIN_PATH' => nil, 'BUNDLE_GEMFILE' => nil, 'GIT_AUTHOR_NAME' => user.to_s}
         Open3.popen2e(env, command) do |input, output_and_error, wait_thread|
           input.close
           while !output_and_error.eof?
