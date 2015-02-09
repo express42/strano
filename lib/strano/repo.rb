@@ -39,9 +39,7 @@ module Strano
     #
     # Returns Boolean true if the repo was successfully removed.
     def self.remove(url)
-      repo = new(url)
-      repo.git.fs_delete('../')
-      !repo.git.fs_exist?('../')
+      true
     end
 
     def root_path
