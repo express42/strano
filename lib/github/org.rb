@@ -6,7 +6,7 @@ class Github
     end
     
     def repos
-      @repos ||= get "/orgs/#{org_name}/repos"
+      @repos ||= get "/orgs/#{org_name}/repos?per_page=100"
     end
     
     def org_name
