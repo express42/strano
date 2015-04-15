@@ -49,6 +49,9 @@ class Job < ActiveRecord::Base
       end
     end
     update_attributes :completed_at => Time.now, :success => success
+  rescue Exception => ex
+    msg = ex.message + "\n" + ex.backtrace.join("\n")
+    update_attributes :completed_at => Time.now, :success => false, :results => msg
   end
 
   def complete?
